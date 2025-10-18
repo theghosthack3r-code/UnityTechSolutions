@@ -6,7 +6,7 @@ const HeroSection: React.FC = () => (
   <section className="mx-auto max-w-7xl px-20 py-6 md:py-10 flex flex-col items-center text-center">
     <img
       id="hero-logo"
-      src="https://i.ibb.co/B5g68K1S/UTS-Logo-Main-Light-Crop.png"
+      src="https://i.ibb.co/Rp05G99w/Untitled-13-22.png"
       alt="UnityTech Solutions Logo"
       className="mx-auto h-45 w-auto mb-6 opacity-0"
       style={{ willChange: 'transform, opacity' }}
