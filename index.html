@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UnityTech Solutions — Rebuilding Something Powerful</title>
+    <meta name="description" content="UnityTech Solutions: Your all‑in‑one IT partner for web, marketing, security, and creative. A new site experience is coming soon — get in touch for a consult." />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#0ea5e9" />
+    <meta property="og:title" content="UnityTech Solutions — Rebuilding Something Powerful" />
+    <meta property="og:description" content="All‑in‑one IT. Web • Marketing • Security • Video. New site coming soon — contact us for a quote." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://unitytech.solutions" />
+    <meta property="og:image" content="/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Oxanium:wght@300;400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script src="/js/tw-config.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+    <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.5/dist/dotlottie-wc.js" type="module"></script>
+
+    <style>
+      /* Custom styles for UnityTech splash */
+      #starfield { position: fixed; inset: 0; z-index: 0; pointer-events:none; }
+      .mesh-bg { position: fixed; inset: -20%; filter: blur(60px) saturate(130%); opacity:.55; z-index:0;
+        background:
+          radial-gradient(55% 55% at 20% 20%, #1976ff 0%, rgba(25,118,255,0) 60%),
+          radial-gradient(50% 50% at 80% 30%, #5b7cfa 0%, rgba(91,124,250,0) 60%),
+          radial-gradient(60% 60% at 40% 80%, #00eaff 0%, rgba(0,234,255,0) 60%),
+          radial-gradient(40% 40% at 85% 85%, #0b2e73 0%, rgba(11,46,115,0) 60%);
+      }
+      .glass { background: linear-gradient(to bottom right, rgba(255,255,255,.12), rgba(255,255,255,.03)); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.12); }
+      .glass-dark { background: linear-gradient(to bottom right, rgba(15,23,42,.55), rgba(2,6,23,.45)); border: 1px solid rgba(255,255,255,.06); }
+      .btn-shine { background: linear-gradient(110deg, rgba(255,255,255,.10), rgba(255,255,255,.02), rgba(255,255,255,.10)); background-size: 200% 100%; }
+      .grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
+      .neon-card{border:1px solid rgba(39,160,255,.28); box-shadow: inset 0 0 24px rgba(39,160,255,.06), 0 0 28px rgba(39,160,255,.10);} 
+      .neon-border{position:relative}
+      .neon-border:before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(135deg, rgba(0,234,255,.25), rgba(25,118,255,.5), rgba(11,46,115,.4)); -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude;}
+      .btn-neon{position:relative;overflow:hidden}
+      .btn-neon:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg, transparent, rgba(255,255,255,.25), transparent); transform:translateX(-100%);} 
+      .btn-neon:hover:after{animation:scan 1.5s linear;}
+      .laser-scan{position:absolute;left:0;right:0;height:2px;top:50%; transform:translateY(-50%); background:linear-gradient(90deg, transparent, rgba(39,160,255,.9), transparent); filter:drop-shadow(0 0 12px #27a0ff);}
+      .font-ox{font-family: Oxanium, Inter, ui-sans-serif, system-ui; letter-spacing:.02em}
+      .circuit-bg{position:fixed;inset:0;z-index:0;pointer-events:none}
+      .circuit-line{stroke:rgba(39,160,255,.35);stroke-width:.4;fill:none;filter:drop-shadow(0 0 6px rgba(39,160,255,.6))}
+      .dash{stroke-dasharray:2 4;animation:dash 8s linear infinite}
+      .dash.slow{animation-duration:14s}
+      @keyframes dash{to{stroke-dashoffset:-12}}
+      .circuit-node{fill:rgba(0,234,255,.8);opacity:.6}
+      .circuit-node.glow{filter:drop-shadow(0 0 8px rgba(0,234,255,.9))}
+      
+      /* New Preloader Styles */
+      .checkmark { color: #22c55e; display: inline-block; opacity: 0; transform: scale(0.5); transition: opacity 0.3s ease, transform 0.3s ease; }
+      .checkmark.visible { opacity: 1; transform: scale(1); }
+
+      .connecting-dots span { display: inline-block; animation: dot-pulse 1.4s infinite; opacity: 0; }
+      .connecting-dots span:nth-child(1) { animation-delay: 0.0s; }
+      .connecting-dots span:nth-child(2) { animation-delay: 0.2s; }
+      .connecting-dots span:nth-child(3) { animation-delay: 0.4s; }
+      @keyframes dot-pulse { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+
+      .access-card {
+        padding: 1.5rem; width: 90%; max-width: 400px; text-align: center;
+        opacity: 0; transform: scale(0.95); transition: opacity 0.5s ease, transform 0.5s ease;
+        position: relative; overflow: hidden;
+        display: flex; flex-direction: column; justify-content: center; min-height: 190px;
+      }
+      .access-card.visible { opacity: 1; transform: scale(1); }
+      .access-card::before {
+        content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+        background: radial-gradient(circle, rgba(0, 234, 255, 0.15), transparent 45%);
+        animation: rotate-glow 8s linear infinite;
+      }
+      @keyframes rotate-glow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+      .secure-text-anim {
+        background: linear-gradient(90deg, #00eaff, #ffffff, #00eaff);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        background-size: 200% 100%;
+        animation: shimmer-text 3s linear infinite;
+      }
+      @keyframes shimmer-text { to { background-position: -200% center; } }
+
+      .high-tech-loader {
+        width: 100%;
+        background: linear-gradient(90deg, rgba(0, 234, 255, 0), rgba(0, 234, 255, 0.8), rgba(0, 234, 255, 0));
+        background-size: 40% 100%;
+        background-repeat: no-repeat;
+        animation: loading-scan 2s ease-in-out infinite;
+      }
+      @keyframes loading-scan {
+        0% { background-position: -50% 0; }
+        100% { background-position: 150% 0; }
+      }
+
+      #yt-bg{position:fixed;inset:0;z-index:-2;overflow:hidden;pointer-events:none;background:#000}
+      #yt-bg iframe{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100vw;height:56.25vw;}
+      @media (min-aspect-ratio: 16/9){ #yt-bg iframe{height:100vh;width:177.78vh;} }
+      #scrim{position:fixed;inset:0;z-index:1;pointer-events:none;background:rgba(0,10,22,var(--scrim-opacity,0));backdrop-filter:blur(var(--scrim-blur,0))}
+      .modal{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;background:rgba(0,10,22,.6);backdrop-filter:blur(6px); opacity: 0; pointer-events: none; transition: opacity 0.25s ease;}
+      .modal.active{opacity: 1; pointer-events: auto;}
+      .modal .panel{transform:scale(.98);opacity:0;transition:transform .25s ease,opacity .25s ease}
+      .modal.active .panel{transform:scale(1);opacity:1}
+      .consent{position:fixed;left:0;right:0;bottom:0;z-index:70}
+      .float-call{position:fixed;right:18px;bottom:90px;z-index:65}
+      .yt-toggle{position:fixed;left:18px;bottom:90px;z-index:65}
+      .chip{padding:.4rem .7rem;border-radius:.7rem;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,.05); transition: all 0.2s ease;}
+      .chip.active{border-color:rgba(39,160,255,.6);box-shadow:0 0 18px rgba(39,160,255,.35); background-color: rgba(39,160,255,.2);}
+      #scrollProg{position:fixed;left:0;top:0;height:5px;z-index:80;background:linear-gradient(90deg,#00eaff,#1976ff);width:0;box-shadow:0 0 18px rgba(39,160,255,.55)}
+      #fx{position:fixed;inset:0;pointer-events:none;z-index:75}
+      .tilt{transform-style:preserve-d;will-change:transform;transition:transform .18s ease}
+
+      /* Terminal Window */
+      .terminal-window {
+        width: 300px;
+        background: rgba(15, 23, 42, 0.8);
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(39, 160, 255, 0.3);
+        border-radius: 8px;
+        font-family: 'Space Mono', monospace;
+        font-size: 12px;
+        color: #00eaff;
+        box-shadow: 0 0 24px rgba(39, 160, 255, 0.2);
+        display: flex;
+        flex-direction: column;
+      }
+      .terminal-header {
+        background: rgba(39, 160, 255, 0.2);
+        padding: 4px 8px;
+        font-weight: bold;
+        color: #d7ebff;
+        border-bottom: 1px solid rgba(39, 160, 255, 0.3);
+      }
+      .terminal-body {
+        padding: 8px;
+        flex-grow: 1;
+      }
+      .terminal-cursor::after {
+        content: '_';
+        animation: blink 1s step-end infinite;
+      }
+      @keyframes blink { 50% { opacity: 0; } }
+      
+      /* Taskbar Styles */
+      .taskbar {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+        height: 56px;
+        padding: 0 1rem;
+        display: flex; align-items: center; justify-content: space-between;
+      }
+      .start-button {
+        padding: 0.5rem 1rem; border-radius: 0.5rem;
+        transition: background-color 0.2s ease;
+      }
+      .start-button:hover { background-color: rgba(255,255,255,0.1); }
+      .start-button.active { background-color: rgba(39, 160, 255, 0.25); }
+      
+      .start-menu {
+        position: absolute; top: calc(100% + 4px); left: 1rem; z-index: 49;
+        width: 280px;
+        opacity: 0;
+        transform: translateY(-10px);
+        pointer-events: none;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+      }
+      .start-menu.open {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+      .start-menu-item {
+        padding: 0.75rem 1.25rem;
+        transition: background-color 0.2s ease;
+      }
+      .start-menu-item:hover { background-color: rgba(39, 160, 255, 0.2); }
+
+      /* Hide native scrollbar */
+      body::-webkit-scrollbar { display: none; }
+      body { -ms-overflow-style: none; scrollbar-width: none; padding-top: 56px; }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0"
+  }
+}
+</script>
+</head>
+  <body class="relative min-h-screen bg-slate-950 text-slate-100 font-display selection:bg-brand-500/30 overflow-x-hidden">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
