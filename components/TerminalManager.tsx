@@ -1,4 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { TextPlugin } from 'gsap/TextPlugin';
+
+gsap.registerPlugin(TextPlugin);
 
 const codeSnippets = [
     '// Initializing neural network...',
@@ -19,9 +23,9 @@ const TerminalWindow: React.FC<{ message: TerminalMessage; onComplete: () => voi
     const elRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        if (!elRef.current || !window.gsap || !window.TextPlugin) return;
+        if (!elRef.current) return;
         
-        const tl = window.gsap.timeline({ onComplete });
+        const tl = gsap.timeline({ onComplete });
         tl.fromTo(elRef.current, { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.5, ease: 'back.out' })
           .to(elRef.current.querySelector('p'), { duration: message.text.length * 0.05, text: { value: message.text, newClass: 'terminal-cursor' }, ease: 'none' })
           .to(elRef.current, { opacity: 0, duration: 0.5, ease: 'power1.in', delay: 2.5 });
@@ -46,11 +50,6 @@ const TerminalManager: React.FC = () => {
 
     // Manages the message lifecycle
     useEffect(() => {
-        // Ensure TextPlugin is registered
-        if (window.gsap && window.TextPlugin) {
-            window.gsap.registerPlugin(window.TextPlugin);
-        }
-
         const showNextMessage = () => {
             const newText = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
             setActiveMessage({ id: counterRef.current++, text: newText });

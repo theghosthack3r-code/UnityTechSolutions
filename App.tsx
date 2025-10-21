@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Preloader from './components/Preloader';
 import Background from './components/Background';
 import MainContent from './components/MainContent';
@@ -7,13 +7,12 @@ import useGsapAnimations from './hooks/useGsapAnimations';
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
+  useGsapAnimations(!loading);
 
   useEffect(() => {
     document.documentElement.lang = 'en';
     document.documentElement.classList.add('scroll-smooth');
   }, []);
-
-  useGsapAnimations(!loading);
 
   return (
     <>

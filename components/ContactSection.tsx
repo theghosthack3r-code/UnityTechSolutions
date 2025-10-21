@@ -104,15 +104,13 @@ const ContactSection: React.FC = () => {
         
         const data = new FormData();
         Object.entries(formData).forEach(([key, value]) => {
-            // Fix: Explicitly cast `value` to `string` because `Object.entries`
-            // can be loosely typed, and `FormData.append` requires a string or Blob.
             data.append(key, value as string);
         });
         data.append('form-name', 'unitytech-intake');
       
         try {
-          const endpoint = 'https://formspree.io/f/YOUR_FORM_ID'; // Replace with your Formspree ID
-          if (endpoint.includes('YOUR_FORM_ID')) throw new Error('No endpoint configured');
+          const endpoint = process.env.FORMSPREE_ENDPOINT;
+          if (!endpoint) throw new Error('No endpoint configured');
           
           const res = await fetch(endpoint, { method:'POST', body: data, headers: { 'Accept': 'application/json' }});
           
@@ -121,7 +119,6 @@ const ContactSection: React.FC = () => {
             setFormData({ project_type: '', budget: '', timeline: '', name: '', email: '', org: '', phone: '', needs: '' });
             setStepperVisible(true);
             setStatus('Thanks! We\'ll reach out shortly.');
-            // This global function should be defined in UIElements.tsx or similar
             (window as any).showSuccessModal?.();
           } else {
             const body = await res.json().catch(()=>({errors:[]}));
